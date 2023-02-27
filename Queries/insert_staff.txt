@@ -1,0 +1,5 @@
+INSERT INTO staff (empname, username, password, emptype) VALUES ('Farhat Abbas', 'radcowboy', 'blitzy', 'worker')
+INSERT INTO staff (empname, username, password, emptype) VALUES ('Sikander', 'sikiclasher', 'boohoo69', 'CFO')
+INSERT INTO staff (empname, username, password, emptype) VALUES ('Laiba', 'sunshine', 'chilltime', 'CEO')
+INSERT INTO staff (empname, username, password, emptype) VALUES ('Naruto Uzumaki', 'yellowhairedkid', '7thhoekage', 'sweeper')
+INSERT INTO staff (empname, username, password, emptype) VALUES ('Sakura Harunoo', 'sakurachan', 'sussybaka', 'General Manager')

@@ -1,0 +1,4 @@
+INSERT INTO customer values ('4245234522', 'levi', 'Paradis Island', 'male', '03085526414')
+INSERT INTO customer values ('6110169420', 'gojo saturo', 'tokyo', 'male', '03164296969')
+INSERT INTO customer values ('5433955833', 'tsunade', 'Leaf village', 'female', '03185449394')
+INSERT INTO customer values ('425474522', 'itachi', 'Leaf vilage', 'male', '03083527411')

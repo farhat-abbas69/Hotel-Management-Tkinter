@@ -1,0 +1,2 @@
+INSERT INTO booking (roomid, custcnic, checkin, checkout, paymenttype) values (1, '4245234522', null, null, 'card')
+INSERT INTO booking (roomid, custcnic, checkin, checkout, paymenttype) values (2, '5433955833', null, null, 'cash')

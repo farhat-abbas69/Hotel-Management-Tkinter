@@ -1,0 +1,32 @@
+Create table staff(
+	employeeid INT NOT NULL IDENTITY(1,1) PRIMARY KEY, --auto incremental primary key
+	empname varchar(20) NOT NULL,
+	username varchar(20) NOT NULL Unique,
+	password varchar(30) not null,
+	emptype varchar(20) not null
+)
+
+Create table customer(
+	custcnic varchar(15) primary key,
+	custname varchar(20) not null,
+	custaddress varchar(50) not null,
+	custgender varchar(6) check (custgender ='male' or custgender = 'female'),
+	custphoneno varchar(12) not null
+)
+
+Create table room(
+	roomid int primary key, --this is room number in the hotel which will represent a room
+	roomtype varchar(20),
+	roomstatus varchar(5) check (roomstatus ='taken' or roomstatus = 'free'),
+	cost int not null,	--per night
+	roomdesc varchar(100)
+)
+
+Create table booking(
+	bookingid int NOT NULL IDENTITY(1,1) primary key,
+	roomid int foreign key references room(roomid),
+	custcnic varchar(15) foreign key references customer(custcnic),
+	checkin date,
+	checkout date,
+	paymenttype varchar(4) check(paymenttype = 'cash' or paymenttype ='card')
+)
