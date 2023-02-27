@@ -6,67 +6,67 @@ from tkinter.messagebox import showinfo
 import pyodbc
 from datetime import datetime
 
-#database connection
-# conn = pyodbc.connect('Driver={SQL Server};'
-#                       'Server=LAPTOP-7NSQJHHP;'
-#                       'Database=hotel;'
-#                       'Trusted_Connection=yes;')
+# database connection
+conn = pyodbc.connect('Driver={SQL Server};'
+                      'Server=LAPTOP-7NSQJHHP;'
+                      'Database=hotel;'
+                      'Trusted_Connection=yes;')
                       
-# cursor = conn.cursor()
+cursor = conn.cursor()
 
 window = Tk()
-# def checkin():
-#     now = datetime.now()
-#     checkindate = now.strftime("%Y-%m-%d")
+def checkin():
+    now = datetime.now()
+    checkindate = now.strftime("%Y-%m-%d")
 
-#     roomnumber = room_entry.get()
-#     cnic = cnic_entry.get()
-#     checkinStatus = 'x'
-#     result = cursor.execute("select top 1 * from booking where custcnic =(?) order by bookingid desc", (cnic))
-#     for i in result:
-#         checkinStatus = i[3]
-#         print(checkinStatus)
+    roomnumber = room_entry.get()
+    cnic = cnic_entry.get()
+    checkinStatus = 'x'
+    result = cursor.execute("select top 1 * from booking where custcnic =(?) order by bookingid desc", (cnic))
+    for i in result:
+        checkinStatus = i[3]
+        print(checkinStatus)
 
-#     if  checkinStatus == None:
-#         cursor.execute("update booking set checkin = (?) where roomid = (?) and custcnic = (?)",
-#         (checkindate,roomnumber,cnic))
-#         conn.commit()
-#         showinfo(title='Result',message="Checked In Successfully!")
-#     else:
-#         showinfo(title='Result',message="You have Not Registered or Have Already Check in!")
+    if  checkinStatus == None:
+        cursor.execute("update booking set checkin = (?) where roomid = (?) and custcnic = (?)",
+        (checkindate,roomnumber,cnic))
+        conn.commit()
+        showinfo(title='Result',message="Checked In Successfully!")
+    else:
+        showinfo(title='Result',message="You have Not Registered or Have Already Check in!")
 
-# def checkout():
-    # now = datetime.now()
-    # checkoutdate = now.strftime("%Y-%m-%d")
+def checkout():
+    now = datetime.now()
+    checkoutdate = now.strftime("%Y-%m-%d")
 
-    # roomnumber = room_entry.get()
-    # cnic = cnic_entry.get()
+    roomnumber = room_entry.get()
+    cnic = cnic_entry.get()
 
-    # checkoutStatus = None
-    # result = cursor.execute("select top 1 * from booking where custcnic =(?) order by bookingid desc", (cnic))
-    # for i in result:
-    #     checkoutStatus = i[4]
-    #     print(checkoutStatus)
+    checkoutStatus = None
+    result = cursor.execute("select top 1 * from booking where custcnic =(?) order by bookingid desc", (cnic))
+    for i in result:
+        checkoutStatus = i[4]
+        print(checkoutStatus)
 
-    # if checkoutStatus == None:
-    #     cursor.execute("update room set roomstatus= (?) where roomid =(?)",("free", roomnumber))
-    #     conn.commit()
-    #     cursor.execute("update booking set checkout = (?) where roomid = (?) and custcnic = (?)",
-    #     (checkoutdate,roomnumber,cnic))
-    #     conn.commit()
-    #     showinfo(title='Result',message="Checked Out Successfully!")
-    # else:
-    #     showinfo(title='Result',message="You have Already Check Out!")
+    if checkoutStatus == None:
+        cursor.execute("update room set roomstatus= (?) where roomid =(?)",("free", roomnumber))
+        conn.commit()
+        cursor.execute("update booking set checkout = (?) where roomid = (?) and custcnic = (?)",
+        (checkoutdate,roomnumber,cnic))
+        conn.commit()
+        showinfo(title='Result',message="Checked Out Successfully!")
+    else:
+        showinfo(title='Result',message="You have Already Check Out!")
     
 
 def create_customer():
-    # name = custName.get()
-    # cnic =custCNIC.get()
-    # address = custAddress.get()
-    # gender = custGender.get()
-    # number= custNo.get()
-    # cursor.execute('Insert into customer values (?,?,?,?,?)', cnic, name, address, gender, number)
-    # conn.commit()
+    name = custName.get()
+    cnic =custCNIC.get()
+    address = custAddress.get()
+    gender = custGender.get()
+    number= custNo.get()
+    cursor.execute('Insert into customer values (?,?,?,?,?)', cnic, name, address, gender, number)
+    conn.commit()
     #insertion in db left
     home_page()
 
@@ -81,12 +81,12 @@ def book_room():
     
     cnic = custcnic.get()
     print(cnic)
-    #insertion in db left
-    # cursor.execute("update room set roomstatus= (?) where roomid =(?)",("taken", room_number))
-    # conn.commit()
-    # cursor.execute("insert into booking (roomid, custcnic, checkin, paymenttype) values (?,?,?,?)",
-    # (room_number, cnic, checkindate, payment_type))
-    # conn.commit()
+    # insertion in db left
+    cursor.execute("update room set roomstatus= (?) where roomid =(?)",("taken", room_number))
+    conn.commit()
+    cursor.execute("insert into booking (roomid, custcnic, checkin, paymenttype) values (?,?,?,?)",
+    (room_number, cnic, checkindate, payment_type))
+    conn.commit()
 
     home_page()
 
@@ -244,13 +244,14 @@ def home_page():
 def login():
     staffun = staffusername.get()
     staffpw = staffpassword.get()
-    home_page() 
-    # result = cursor.execute("Select username, password from staff")
-    # for i in result:
-    #     if(staffun==i[0] and staffpw == i[1]):
-    #                 #if a staff member matches meaning we will login
-    #         return
-    showinfo(title='Login Error',message="No Staff Exist with these Credentials!")
+    
+    result = cursor.execute("Select username, password from staff")
+    for i in result:
+        if(staffun==i[0] and staffpw == i[1]):
+            home_page()     #if a staff member matches meaning we will login
+            return
+        else:
+            showinfo(title='Login Error',message="No Staff Exist with these Credentials!")
 
 
 window.geometry("1189x673")
